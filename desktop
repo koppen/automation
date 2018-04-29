@@ -1,0 +1,25 @@
+#!/usr/bin/env ruby
+
+# Set a desktop wallpaper across all connected displays.
+#
+# Can grab a random wallpaper from a folder if given a path to a directory or
+# set a specific wallpaper if given a path to a file
+
+abort "Usage: #{__FILE__} [image|folder]" if ARGV.empty?
+
+def get_wallpaper(path)
+  if Dir.exists?(path)
+    files = Dir.glob(File.join(path, "*.{png,jpg}"))
+    files.sample
+  else
+    path
+  end
+end
+
+def set_wallpaper(wallpaper_path)
+  `osascript -e 'tell application "System Events" to set picture of every desktop to "#{wallpaper_path}"'`
+end
+
+wallpaper_path = File.expand_path(ARGV.first)
+wallpaper_path = get_wallpaper(wallpaper_path)
+set_wallpaper(wallpaper_path)
