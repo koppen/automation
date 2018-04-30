@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Free up diskspace by removing unused MacPort files
+
+sudo port clean --all installed
+sudo port -f uninstall inactive # Removes ports that aren't active
+sudo rm -rf /opt/local/var/macports/build/* # Remove ports that failed during installation
+sudo rm -rf /opt/local/var/macports/distfiles/* # Remove ports that failed during installation

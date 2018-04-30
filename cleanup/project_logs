@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Free up diskspace by removing all logfiles that have accumulated in  my
+# Projects directories.
+
+set -e
+
+SIZE=`find -E ~/Projects/ -regex '.*/(test|development|debug)\.log' -exec ls -l {} \; | awk '{print $5}' | awk -F, '{sum += $1} END {print sum}'`
+echo "Cleaning out "$SIZE" bytes of logfiles"
+find -E ~/Projects/ -regex '.*/(test|development|debug)\.log' -print -exec rm {} \;

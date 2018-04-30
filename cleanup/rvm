@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# Free up diskspace by running RVM cleanup tasks
+
+rvm cleanup all
+rvm disk-usage all
